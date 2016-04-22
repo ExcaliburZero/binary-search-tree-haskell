@@ -21,7 +21,7 @@
  -}
 module BinarySearchTree where
 
-data BST = BST Int BST BST | Leaf Int | End
+data BST = BST Int BST BST | Null
 
 instance Show BST where
     show bst = showBST bst
@@ -30,6 +30,14 @@ instance Show BST where
  - Prints the given Binary Search Tree.
  -}
 showBST :: BST -> String
-showBST (BST int left right) = showBST left ++ showBST (Leaf int) ++ showBST right
-showBST (Leaf int) = "[" ++ show int ++ "]"
-showBST _ = ""
+showBST (BST int left right) = showBST left ++ "[" ++ show int ++ "]" ++ showBST right
+showBST Null = ""
+
+{-|
+ - Inserts the given value into the given Binary Search Tree.
+ -}
+insertBST :: BST -> Int -> BST
+insertBST (BST value left right) item
+    | item <= value = BST value (insertBST left item) right
+    | item > value = BST value left (insertBST right item)
+insertBST (Null) item = BST item Null Null
