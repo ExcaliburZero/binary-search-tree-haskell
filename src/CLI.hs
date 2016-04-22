@@ -19,14 +19,24 @@
  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  - SOFTWARE.
  -}
-module Main where
+module CLI where
 
-import CLI
+{-|
+ - Prompts the user for a command and returns the given command.
+ -}
+promptForCommand :: IO String
+promptForCommand = do
+    putStrLn "Enter a command (i, c, in, pre, post, or q):"
+    getLine
 
-main :: IO ()
-main = do
-    putStrLn "Welcome to Binary Tree Sorter"
-    command <- promptForCommand
-    let valid = validateCommand command
-    putStrLn $ show valid
-    putStrLn "Closing Binary Tree Sorter"
+{-|
+ - Validates the given command.
+ -}
+validateCommand :: String -> Bool
+validateCommand ('p':'o':'s':'t':xs) = True
+validateCommand ('p':'r':'e':xs) = True
+validateCommand ('i':'n':xs) = True
+validateCommand ('i':xs) = True
+validateCommand ('c':xs) = True
+validateCommand ('q':xs) = True
+validateCommand _ = False
