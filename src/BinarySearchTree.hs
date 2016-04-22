@@ -30,6 +30,6 @@ instance Show BST where
  - Prints the given Binary Search Tree.
  -}
 showBST :: BST -> String
-showBST (BST int left right) = show left ++ show (Leaf int) ++ show right
+showBST (BST int left right) = showBST left ++ showBST (Leaf int) ++ showBST right
 showBST (Leaf int) = "[" ++ show int ++ "]"
 showBST _ = ""
