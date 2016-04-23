@@ -43,6 +43,13 @@ insertBST (BST value left right) item
 insertBST (Null) item = BST item Null Null
 
 {-|
+ - Inserts all of the values in the given list into the Binary Search tree.
+ -}
+insertAllBST :: BST -> [Int] -> BST
+insertAllBST b [] = b
+insertAllBST b (x:xs) = insertAllBST (insertBST b x) xs
+
+{-|
  - Returns a value indicating whether or not the Binary Search Tree contains the
  - given value.
  -}
