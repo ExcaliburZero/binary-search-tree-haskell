@@ -41,3 +41,14 @@ insertBST (BST value left right) item
     | item <= value = BST value (insertBST left item) right
     | item > value = BST value left (insertBST right item)
 insertBST (Null) item = BST item Null Null
+
+{-|
+ - Returns a value indicating whether or not the Binary Search Tree contains the
+ - given value.
+ -}
+containsBST :: BST -> Int -> Bool
+containsBST (BST value left right) item
+    | item == value = True
+    | item < value = containsBST left item
+    | item > value = containsBST right item
+containsBST (Null) item = False
