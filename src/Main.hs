@@ -22,11 +22,10 @@
 module Main where
 
 import CLI
+import BinarySearchTree
 
 main :: IO ()
 main = do
     putStrLn "Welcome to Binary Tree Sorter"
-    command <- promptForCommand
-    let valid = validateCommand command
-    putStrLn $ show valid
+    action Null
     putStrLn "Closing Binary Tree Sorter"

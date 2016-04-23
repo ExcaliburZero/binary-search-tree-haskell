@@ -21,6 +21,8 @@
  -}
 module CLI where
 
+import BinarySearchTree
+
 {-|
  - Prompts the user for a command and returns the given command.
  -}
@@ -40,3 +42,19 @@ validateCommand ('i':xs) = True
 validateCommand ('c':xs) = True
 validateCommand ('q':xs) = True
 validateCommand _ = False
+
+{-|
+ - Preforms an action based on the user entered command.
+ -}
+action :: BST -> IO ()
+action b = do
+    command <- promptForCommand
+    let valid = validateCommand command
+    if not valid then printInvalid command else return ()
+    if command /= "q" then action b else return ()
+
+{-|
+ - Prints that an invalid command was entered.
+ -}
+printInvalid :: String -> IO ()
+printInvalid s = putStrLn ("Invalid command -- " ++ s)
