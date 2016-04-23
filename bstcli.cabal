@@ -1,0 +1,12 @@
+Name:               bstcli
+Version:            0.1.0
+License:            MIT
+License-file:       LICENSE
+Author:             Christopher Wells
+Maintainer:         Christopher Wells <cwellsny@nycap.rr.com>
+Build-Depends:      base
+build-type:         Simple
+
+Executable:         bstcli
+hs-source-dirs:     src
+Main-is:            Main.hs
