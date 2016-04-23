@@ -36,12 +36,17 @@ data BST
     -- | An empty Binary Search tree with no value or subtrees.
     | Null
 
--- | Shows the contents of the Binary Search Tree in order.
+-- | Shows the contents of the Binary Search Tree in order, using the showBST
+-- function.
 instance Show BST where
     show bst = showBST bst
 
 {-|
-  Prints the given Binary Search Tree.
+  Returns a String representation of the contents of the given Binary Search
+  Tree in order.
+
+  >>> showBST BST 180 (BST 150 Null Null) (BST 190 Null Null)
+  [150][180][190]
 -}
 showBST :: BST -> String
 showBST (BST int left right) = showBST left ++ "[" ++ show int ++ "]" ++ showBST right
@@ -49,6 +54,9 @@ showBST Null = ""
 
 {-|
   Inserts the given value into the given Binary Search Tree.
+
+  >>> insertBST (BST 180 Null Null) 150
+  [150][180]
 -}
 insertBST :: BST -> Int -> BST
 insertBST (BST value left right) item
@@ -58,6 +66,9 @@ insertBST (Null) item = BST item Null Null
 
 {-|
   Inserts all of the values in the given list into the Binary Search tree.
+
+  >>> insertAllBST (BST 180 Null Null) [150, 175, 190]
+  [150][175][180][190]
 -}
 insertAllBST :: BST -> [Int] -> BST
 insertAllBST b [] = b
@@ -66,6 +77,11 @@ insertAllBST b (x:xs) = insertAllBST (insertBST b x) xs
 {-|
   Returns a value indicating whether or not the Binary Search Tree contains the
   given value.
+
+  >>> containsBST (BST 180 Null Null) 180
+  True
+  >>> containsBST (BST 180 Null Null) 200
+  False
 -}
 containsBST :: BST -> Int -> Bool
 containsBST (BST value left right) item

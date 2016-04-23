@@ -32,6 +32,10 @@ import BinarySearchTree
 
 {-|
   Prompts the user for a command and returns the given command.
+
+  >>> promptForCommand
+  Enter a command (i, c, in, pre, post, or q):
+  i
 -}
 promptForCommand :: IO String
 promptForCommand = do
@@ -40,6 +44,11 @@ promptForCommand = do
 
 {-|
   Validates the given command.
+
+  >>> validateCommand "i Alice"
+  True
+  >>> validateCommand "show Alice"
+  False
 -}
 validateCommand :: String -> Bool
 validateCommand ('p':'o':'s':'t':xs) = True
@@ -62,6 +71,9 @@ action b = do
 
 {-|
   Prints that an invalid command was entered.
+
+  >>> printInvalid "test Alice"
+  Invalid command -- test Alice
 -}
 printInvalid :: String -> IO ()
 printInvalid s = putStrLn ("Invalid command -- " ++ s)
