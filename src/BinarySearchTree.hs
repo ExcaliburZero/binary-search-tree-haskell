@@ -19,23 +19,37 @@
  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  - SOFTWARE.
  -}
+{-|
+Module      : BinarySearchTree
+Description : Defines the BST data structure and includes functions for
+              operating on instances of it.
+Copyright   : (c) Christopher Wells, 2016
+License     : MIT
+Maintainer  : cwellsny@nycap.rr.com
+-}
 module BinarySearchTree where
 
-data BST = BST Int BST BST | Null
+-- | A representation of a Binary Search Tree.
+data BST
+    -- | A Binary Search Tree with a value and two subtrees.
+    = BST Int BST BST
+    -- | An empty Binary Search tree with no value or subtrees.
+    | Null
 
+-- | Shows the contents of the Binary Search Tree in order.
 instance Show BST where
     show bst = showBST bst
 
 {-|
- - Prints the given Binary Search Tree.
- -}
+  Prints the given Binary Search Tree.
+-}
 showBST :: BST -> String
 showBST (BST int left right) = showBST left ++ "[" ++ show int ++ "]" ++ showBST right
 showBST Null = ""
 
 {-|
- - Inserts the given value into the given Binary Search Tree.
- -}
+  Inserts the given value into the given Binary Search Tree.
+-}
 insertBST :: BST -> Int -> BST
 insertBST (BST value left right) item
     | item <= value = BST value (insertBST left item) right
@@ -43,16 +57,16 @@ insertBST (BST value left right) item
 insertBST (Null) item = BST item Null Null
 
 {-|
- - Inserts all of the values in the given list into the Binary Search tree.
- -}
+  Inserts all of the values in the given list into the Binary Search tree.
+-}
 insertAllBST :: BST -> [Int] -> BST
 insertAllBST b [] = b
 insertAllBST b (x:xs) = insertAllBST (insertBST b x) xs
 
 {-|
- - Returns a value indicating whether or not the Binary Search Tree contains the
- - given value.
- -}
+  Returns a value indicating whether or not the Binary Search Tree contains the
+  given value.
+-}
 containsBST :: BST -> Int -> Bool
 containsBST (BST value left right) item
     | item == value = True

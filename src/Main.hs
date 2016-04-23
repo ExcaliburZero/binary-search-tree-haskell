@@ -19,11 +19,21 @@
  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  - SOFTWARE.
  -}
+{-|
+Module      : Main
+Description : Runs the program.
+Copyright   : (c) Christopher Wells, 2016
+License     : MIT
+Maintainer  : cwellsny@nycap.rr.com
+-}
 module Main where
 
 import CLI
 import BinarySearchTree
 
+{-|
+  Runs the program.
+-}
 main :: IO ()
 main = do
     putStrLn "Welcome to Binary Tree Sorter"

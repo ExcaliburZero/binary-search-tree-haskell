@@ -19,21 +19,28 @@
  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  - SOFTWARE.
  -}
+{-|
+Module      : CLI
+Description : Contains functions for the command line interface.
+Copyright   : (c) Christopher Wells, 2016
+License     : MIT
+Maintainer  : cwellsny@nycap.rr.com
+-}
 module CLI where
 
 import BinarySearchTree
 
 {-|
- - Prompts the user for a command and returns the given command.
- -}
+  Prompts the user for a command and returns the given command.
+-}
 promptForCommand :: IO String
 promptForCommand = do
     putStrLn "Enter a command (i, c, in, pre, post, or q):"
     getLine
 
 {-|
- - Validates the given command.
- -}
+  Validates the given command.
+-}
 validateCommand :: String -> Bool
 validateCommand ('p':'o':'s':'t':xs) = True
 validateCommand ('p':'r':'e':xs) = True
@@ -44,8 +51,8 @@ validateCommand ('q':xs) = True
 validateCommand _ = False
 
 {-|
- - Preforms an action based on the user entered command.
- -}
+  Preforms an action based on the user entered command.
+-}
 action :: BST -> IO ()
 action b = do
     command <- promptForCommand
@@ -54,7 +61,7 @@ action b = do
     if command /= "q" then action b else return ()
 
 {-|
- - Prints that an invalid command was entered.
- -}
+  Prints that an invalid command was entered.
+-}
 printInvalid :: String -> IO ()
 printInvalid s = putStrLn ("Invalid command -- " ++ s)
