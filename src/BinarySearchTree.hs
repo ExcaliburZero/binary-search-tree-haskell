@@ -39,7 +39,7 @@ data BST
 -- | Shows the contents of the Binary Search Tree in order, using the showBST
 -- function.
 instance Show BST where
-    show bst = showBST bst
+    show = showBST
 
 {-|
   Returns a String representation of the contents of the given Binary Search
@@ -62,7 +62,7 @@ insertBST :: BST -> Int -> BST
 insertBST (BST value left right) item
     | item <= value = BST value (insertBST left item) right
     | item > value = BST value left (insertBST right item)
-insertBST (Null) item = BST item Null Null
+insertBST Null item = BST item Null Null
 
 {-|
   Inserts all of the values in the given list into the Binary Search tree.
@@ -71,8 +71,7 @@ insertBST (Null) item = BST item Null Null
   [150][175][180][190]
 -}
 insertAllBST :: BST -> [Int] -> BST
-insertAllBST b [] = b
-insertAllBST b (x:xs) = insertAllBST (insertBST b x) xs
+insertAllBST = foldl insertBST
 
 {-|
   Returns a value indicating whether or not the Binary Search Tree contains the
@@ -88,4 +87,4 @@ containsBST (BST value left right) item
     | item == value = True
     | item < value = containsBST left item
     | item > value = containsBST right item
-containsBST (Null) item = False
+containsBST Null item = False
