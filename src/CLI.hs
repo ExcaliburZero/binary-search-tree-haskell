@@ -30,6 +30,8 @@ module CLI where
 
 import BinarySearchTree
 
+import Control.Monad (when, unless)
+
 {-|
   Prompts the user for a command and returns the given command.
 
@@ -55,11 +57,12 @@ promptForCommand = do
 validateCommand :: String -> Bool
 validateCommand x
     | x == "" = False
-    | (head $ words x) == "i"  && ((length $ words x) == 2)= True
-    | (head $ words x) == "c"  && ((length $ words x) == 2)= True
-    | (head $ words x) == "in"  && ((length $ words x) == 1)= True
-    | (head $ words x) == "pre"  && ((length $ words x) == 1)= True
-    | (head $ words x) == "post"  && ((length $ words x) == 1)= True
+    | head (words x) == "i"  && (length (words x) == 2) = True
+    | head (words x) == "c"  && (length (words x) == 2) = True
+    | head (words x) == "in"  && (length (words x) == 1) = True
+    | head (words x) == "pre"  && (length (words x) == 1) = True
+    | head (words x) == "post"  && (length (words x) == 1) = True
+    | head (words x) == "q"  && (length (words x) == 1) = True
     | otherwise = False
 
 {-|
@@ -69,8 +72,8 @@ action :: BST -> IO ()
 action b = do
     command <- promptForCommand
     let valid = validateCommand command
-    if not valid then printInvalid command else return ()
-    if command /= "q" then action b else return ()
+    unless valid $ printInvalid command
+    when (command /= "q") $ action b
 
 {-|
   Prints that an invalid command was entered.
