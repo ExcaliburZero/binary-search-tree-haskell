@@ -49,15 +49,18 @@ promptForCommand = do
   True
   >>> validateCommand "show Alice"
   False
+  >>> validateCommand ""
+  False
 -}
 validateCommand :: String -> Bool
-validateCommand ('p':'o':'s':'t':xs) = True
-validateCommand ('p':'r':'e':xs) = True
-validateCommand ('i':'n':xs) = True
-validateCommand ('i':xs) = True
-validateCommand ('c':xs) = True
-validateCommand ('q':xs) = True
-validateCommand _ = False
+validateCommand x
+    | x == "" = False
+    | (head $ words x) == "i"  && ((length $ words x) == 2)= True
+    | (head $ words x) == "c"  && ((length $ words x) == 2)= True
+    | (head $ words x) == "in"  && ((length $ words x) == 1)= True
+    | (head $ words x) == "pre"  && ((length $ words x) == 1)= True
+    | (head $ words x) == "post"  && ((length $ words x) == 1)= True
+    | otherwise = False
 
 {-|
   Preforms an action based on the user entered command.
