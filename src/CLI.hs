@@ -57,12 +57,12 @@ promptForCommand = do
 validateCommand :: String -> Bool
 validateCommand x
     | x == "" = False
-    | head (words x) == "i"  && (length (words x) == 2) = True
-    | head (words x) == "c"  && (length (words x) == 2) = True
-    | head (words x) == "in"  && (length (words x) == 1) = True
-    | head (words x) == "pre"  && (length (words x) == 1) = True
-    | head (words x) == "post"  && (length (words x) == 1) = True
-    | head (words x) == "q"  && (length (words x) == 1) = True
+    | head (words x) == "i" && (length (words x) == 2) = True
+    | head (words x) == "c" && (length (words x) == 2) = True
+    | head (words x) == "in" && (length (words x) == 1) = True
+    | head (words x) == "pre" && (length (words x) == 1) = True
+    | head (words x) == "post" && (length (words x) == 1) = True
+    | head (words x) == "q" && (length (words x) == 1) = True
     | otherwise = False
 
 {-|
@@ -73,7 +73,27 @@ action b = do
     command <- promptForCommand
     let valid = validateCommand command
     unless valid $ printInvalid command
-    when (command /= "q") $ action b
+    bs <- runCommand b command
+    when (command /= "q") $ action bs
+
+{-|
+  Runs the given command on the given Binary Search Tree, and returns the resulting Binary Search Tree.
+-}
+runCommand :: BST -> String -> IO BST
+runCommand b c
+    | c == "" = return b
+    | head (words c) == "i" = do
+                                 return (insertBST b (last (words c)))
+    | head (words c) == "c" = do
+                                 let item = last $ words c
+                                 if (containsBST b item) then (putStrLn $ item ++ " is contained in the tree.") else (putStrLn $ item ++ " is not contained in the tree.")
+                                 return b
+    | head (words c) == "in" = do putStrLn $ show b
+                                  return b
+    | head (words c) == "pre" = return b
+    | head (words c) == "post" = return b
+    | head (words c) == "q" = return b
+    | otherwise = return b
 
 {-|
   Prints that an invalid command was entered.
