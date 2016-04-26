@@ -88,10 +88,18 @@ runCommand b c
                                  let item = last $ words c
                                  if (containsBST b item) then (putStrLn $ item ++ " is contained in the tree.") else (putStrLn $ item ++ " is not contained in the tree.")
                                  return b
-    | head (words c) == "in" = do putStrLn $ show b
+    | head (words c) == "in" = do let result = showBST b
+                                  let resultStr = if (null result) then "The tree has no nodes." else result
+                                  putStrLn resultStr
                                   return b
-    | head (words c) == "pre" = return b
-    | head (words c) == "post" = return b
+    | head (words c) == "pre" = do let result = showPreBST b
+                                   let resultStr = if (null result) then "The tree has no nodes." else result
+                                   putStrLn resultStr
+                                   return b
+    | head (words c) == "post" = do let result = showPostBST b
+                                    let resultStr = if (null result) then "The tree has no nodes." else result
+                                    putStrLn resultStr
+                                    return b
     | head (words c) == "q" = return b
     | otherwise = return b
 
