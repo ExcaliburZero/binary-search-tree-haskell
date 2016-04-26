@@ -52,6 +52,14 @@ showBST :: BST -> String
 showBST (BST value left right) = showBST left ++ "[" ++ value ++ "]" ++ showBST right
 showBST Null = ""
 
+showPreBST :: BST -> String
+showPreBST (BST value left right) = "[" ++ value ++ "]" ++ showPreBST left ++ showPreBST right
+showPreBST Null = ""
+
+showPostBST :: BST -> String
+showPostBST (BST value left right) =  showPostBST left ++ showPostBST right ++ "[" ++ value ++ "]"
+showPostBST Null = ""
+
 {-|
   Inserts the given value into the given Binary Search Tree.
 
