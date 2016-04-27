@@ -46,7 +46,7 @@ instance Show BST where
   Tree in order.
 
   >>> showBST (BST "Ben" (BST "Alice" Null Null) (BST "Sam" Null Null))
-  [Alice][Ben][Sam]
+  "[Alice][Ben][Sam]"
 -}
 showBST :: BST -> String
 showBST (BST value left right) = showBST left ++ "[" ++ value ++ "]" ++ showBST right
@@ -57,7 +57,7 @@ showBST Null = ""
   Tree in pre-order.
 
   >>> showPreBST (BST "Ben" (BST "Alice" Null Null) (BST "Sam" Null Null))
-  [Ben][Alice][Sam]
+  "[Ben][Alice][Sam]"
 -}
 showPreBST :: BST -> String
 showPreBST (BST value left right) = "[" ++ value ++ "]" ++ showPreBST left ++ showPreBST right
@@ -68,7 +68,7 @@ showPreBST Null = ""
   Tree in post-order.
 
   >>> showPostBST (BST "Ben" (BST "Alice" Null Null) (BST "Sam" Null Null))
-  [Alice][Sam][Ben]
+  "[Alice][Sam][Ben]"
 -}
 showPostBST :: BST -> String
 showPostBST (BST value left right) =  showPostBST left ++ showPostBST right ++ "[" ++ value ++ "]"
