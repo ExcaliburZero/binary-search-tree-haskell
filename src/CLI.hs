@@ -57,13 +57,15 @@ promptForCommand = do
 validateCommand :: String -> Bool
 validateCommand x
     | x == "" = False
-    | head (words x) == "i" && (length (words x) == 2) = True
-    | head (words x) == "c" && (length (words x) == 2) = True
-    | head (words x) == "in" && (length (words x) == 1) = True
-    | head (words x) == "pre" && (length (words x) == 1) = True
-    | head (words x) == "post" && (length (words x) == 1) = True
-    | head (words x) == "q" && (length (words x) == 1) = True
+    | commandType == "i" && commandLength == 2 = True
+    | commandType == "c" && commandLength == 2 = True
+    | commandType == "in" && commandLength == 1 = True
+    | commandType == "pre" && commandLength == 1 = True
+    | commandType == "post" && commandLength == 1 = True
+    | commandType == "q" && commandLength == 1 = True
     | otherwise = False
+    where commandType = head (words x)
+          commandLength = length (words x)
 
 {-|
   Preforms an action based on the user entered command.
@@ -82,10 +84,8 @@ action b = do
 runCommand :: BST -> String -> IO BST
 runCommand b c
     | c == "" = return b
-    | head (words c) == "i" = do
-                                 return (insertBST b (last (words c)))
-    | head (words c) == "c" = do
-                                 let item = last $ words c
+    | head (words c) == "i" = return (insertBST b (last (words c)))
+    | head (words c) == "c" = do let item = last $ words c
                                  if (containsBST b item) then (putStrLn $ item ++ " is contained in the tree.") else (putStrLn $ item ++ " is not contained in the tree.")
                                  return b
     | head (words c) == "in" = do let result = showBST b
