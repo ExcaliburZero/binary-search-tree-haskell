@@ -68,6 +68,24 @@ validateCommand x
           commandLength = length (words x)
 
 {-|
+  Prints the contents of the given tree with the given show function.
+-}
+printTree :: BST -> (BST -> String) -> IO BST
+printTree b f = do let result = f b
+                   let resultStr = if (null result) then "The tree has no nodes." else result
+                   putStrLn resultStr
+                   return b
+
+{-|
+  Prints a String representing whether or not the given object is contained
+  within the given Binary Search Tree.
+-}
+printContains :: BST -> String -> IO BST
+printContains b item = do let result = if (containsBST b item) then (item ++ " is contained in the tree.") else (item ++ " is not contained in the tree.")
+                          putStrLn result
+                          return b
+
+{-|
   Preforms an action based on the user entered command.
 -}
 action :: BST -> IO ()
@@ -84,24 +102,15 @@ action b = do
 runCommand :: BST -> String -> IO BST
 runCommand b c
     | c == "" = return b
-    | head (words c) == "i" = return (insertBST b (last (words c)))
-    | head (words c) == "c" = do let item = last $ words c
-                                 if (containsBST b item) then (putStrLn $ item ++ " is contained in the tree.") else (putStrLn $ item ++ " is not contained in the tree.")
-                                 return b
-    | head (words c) == "in" = do let result = showBST b
-                                  let resultStr = if (null result) then "The tree has no nodes." else result
-                                  putStrLn resultStr
-                                  return b
-    | head (words c) == "pre" = do let result = showPreBST b
-                                   let resultStr = if (null result) then "The tree has no nodes." else result
-                                   putStrLn resultStr
-                                   return b
-    | head (words c) == "post" = do let result = showPostBST b
-                                    let resultStr = if (null result) then "The tree has no nodes." else result
-                                    putStrLn resultStr
-                                    return b
-    | head (words c) == "q" = return b
+    | commandType == "i" = return (insertBST b item)
+    | commandType == "c" = printContains b item
+    | commandType == "in" = printTree b showBST
+    | commandType == "pre" = printTree b showPreBST
+    | commandType == "post" = printTree b showPostBST
+    | commandType == "q" = return b
     | otherwise = return b
+    where commandType = head (words c)
+          item = last $ words c
 
 {-|
   Prints that an invalid command was entered.
