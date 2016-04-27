@@ -71,19 +71,21 @@ validateCommand x
   Prints the contents of the given tree with the given show function.
 -}
 printTree :: BST -> (BST -> String) -> IO BST
-printTree b f = do let result = f b
-                   let resultStr = if (null result) then "The tree has no nodes." else result
-                   putStrLn resultStr
-                   return b
+printTree b f = do
+    let result = f b
+    let resultStr = if null result then "The tree has no nodes." else result
+    putStrLn resultStr
+    return b
 
 {-|
   Prints a String representing whether or not the given object is contained
   within the given Binary Search Tree.
 -}
 printContains :: BST -> String -> IO BST
-printContains b item = do let result = if (containsBST b item) then (item ++ " is contained in the tree.") else (item ++ " is not contained in the tree.")
-                          putStrLn result
-                          return b
+printContains b item = do
+    let result = if containsBST b item then item ++ " is contained in the tree." else item ++ " is not contained in the tree."
+    putStrLn result
+    return b
 
 {-|
   Preforms an action based on the user entered command.
