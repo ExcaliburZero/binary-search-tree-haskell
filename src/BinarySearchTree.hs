@@ -109,4 +109,4 @@ containsBST (BST value left right) item
     | item == value = True
     | item < value = containsBST left item
     | item > value = containsBST right item
-containsBST Null item = False
+containsBST Null _ = False
